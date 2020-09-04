@@ -1,0 +1,50 @@
+# Server config
+Server:
+   compression:
+      enabled: true
+   http2:
+      enabled: true
+   port: 8023
+   servlet:
+      contextPath: /
+   
+security:
+   jwt:
+      secret: "xFgXy76H7{@3s!"
+
+spring:
+   application:
+      name: oauth demo
+   datasource:
+      # Check if server use ssl or not, in there ssl set to false
+      url: jdbc:mysql://localhost:3306/demo_oauth?useSSL=false&serverTimezone=Asia/Jakarta&useLegacyDatetimeCode=false&zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8
+      username: root
+      password:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      max-active: 100
+      test-while-idle: true
+      test-on-borrow: true
+      validation-query: SELECT 1
+      time-between-eviction-run-millis: 5000
+      min-evictable-idle-time-millis: 6000
+   jpa:
+      properties:
+         hibernate:
+            show-sql: true
+            use_sql_comments: false
+            format_sql: true
+      hibernate:
+         ddlAuto: update
+      #Without this sometimes ddl-auto not working in yml file, depends on version of springboot
+      generate-ddl: true
+
+logging:
+   file: logs/oauth.log
+   pattern:
+      console: "%d %-5level %logger : %msg%n"
+      file: "%d %-5level [%thread] %logger : %msg%n"
+   level:
+      org:
+         springframework:
+            security: DEBUG
+            web: DEBUG
